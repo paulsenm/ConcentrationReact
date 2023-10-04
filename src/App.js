@@ -21,6 +21,42 @@ class App extends Component {
 
 
   }
+
+  fillImages(){
+    console.log("Images filled.");
+  }
+
+  shuffleImages(images){
+    console.log("Images shuffled.");
+  }
+
+  renderCard(i){
+    console.log("Card rendered.")
+  }
+
+  handleClick(event){
+    console.log("Click handled.");
+  }
+
+  isMatch(){
+    console.log("Match is'ed.");
+  }
+
+  checkCards(){
+    console.log("Cards checked.");
+  }
+
+  render(){
+    console.log("Rendered.");
+    let output = 
+      <div>
+        Rendered
+      </div>
+      ;
+
+    return output;
+  }
+
 }
 
 export default App;
