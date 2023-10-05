@@ -46,79 +46,75 @@ class App extends Component {
   }
 
   renderCard(i){
-     console.log("Card rendered." + i);
-  //   const image = (this.state.images[i] == null) ? 'none' : 
-  //   ( this.state.firstPick == i || this.state.secondPick == i) ? 
-  //   'url(' + this.state.imagePath + this.state.images[i] + ')' : 
-  //   'url(' + this.state.imagePath + 'black_back.jpg)';
-  //   let imagesNull = this.state.images == null;
-  //   let iNotPicked = i != this.state.firstPick && i != this.state.secondPick;
-  //   let notBothPicked = this.state.firstPick == -1 || this.state.secondPick == -1;
-  //   let gameNotOver = this.state.matches < 10;
-  //   console.log("image null? " + (imagesNull ? "yes" : "no"));
-  //   console.log("iNotPicked?" + (iNotPicked ? "yes" : "no"));
-  //   console.log("Not two picked?" + (notBothPicked  ? "yes" : "no"));
-  //   console.log("Game not over? " + (gameNotOver  ? "yes" : "no"));
-  //   const enabled = (this.state.images[i] != null && 
-  //   (i != this.state.firstPick && i != this.state.secondPick) &&
-  //   (this.state.firstPick == -1 || this.state.secondPick == -1) &&
-  //   (this.state.matches < 10)) ? true : false;
-  //   //const eventHandler = (enabled) ? this.handleClick(i) : () => {};
-  //   const eventHandler = this.handleClick(i); 
-  //   //const cursor = (enabled) ? "pointer" : "none";
-  //   const cursor = "pointer";
-  //   const output = 
-  //     <div 
-  //         id={i} key={i} 
-  //         name="card" 
-  //         className="col-sm-2 card"
-  //         style={{backgroundImage: image, cursor: cursor}}
-  //         onClick={eventHandler}
-  //         >
-  //         &nbsp;
-  //     </div>
-  //   ;
-  // return output;
+    console.log("Card rendered." + i);
+    const image = (this.state.images[i] == null) ? 'none' : 
+      ( this.state.firstPick == i || this.state.secondPick == i) ? 
+      'url(' + this.state.imagePath + this.state.images[i] + ')' : 
+      'url(' + this.state.imagePath + 'black_back.jpg)';
+    let imagesNull = this.state.images == null;
+    let iNotPicked = i != this.state.firstPick && i != this.state.secondPick;
+    let notBothPicked = this.state.firstPick == -1 || this.state.secondPick == -1;
+    let gameNotOver = this.state.matches < 10;
+    console.log("image null? " + (imagesNull ? "yes" : "no"));
+    console.log("iNotPicked?" + (iNotPicked ? "yes" : "no"));
+    console.log("Not two picked?" + (notBothPicked  ? "yes" : "no"));
+    console.log("Game not over? " + (gameNotOver  ? "yes" : "no"));
+    const enabled = (this.state.images[i] != null && 
+    (i != this.state.firstPick && i != this.state.secondPick) &&
+    (this.state.firstPick == -1 || this.state.secondPick == -1) &&
+    (this.state.matches < 10)) ? true : false;
+    const eventHandler = (enabled) ? () => this.handleClick(i) : () => {};
+    //const eventHandler = () => this.handleClick(i); 
+    const cursor = (enabled) ? "pointer" : "none";
+    //const cursor = "pointer";
+    const output = 
+      <div 
+          id={i} key={i} 
+          name="card" 
+          className="col-sm-2 card"
+          style={{backgroundImage: image, cursor: cursor}}
+          onClick={eventHandler}
+          >
+          &nbsp;
+      </div>
+    ;
+  return output;
   }
 
-  handleClick(event){
-    let index = 1;
-    console.log("Click handled.");
-    // if (event.target){
-    //   index = parseInt(event.target.id);
-    // }
-   
+  handleClick(i){
+    console.log("Click handled." + i);
+    const index = parseInt(i);
 
-    // if (this.state.firstPick == -1)
-    //     this.state.firstPick = index;
-    // else {
-    //     this.state.secondPick = index;
-    //     setTimeout(this.checkCards, 2000);
-    // }
+    if (this.state.firstPick == -1)
+        this.state.firstPick = index;
+    else {
+        this.state.secondPick = index;
+        setTimeout(this.checkCards, 2000);
+    }
   }
 
   isMatch(){
     console.log("Match is'ed.");
-    // const firstPickIndex = this.state.firstPick;
-    // const secondPickIndex = this.state.secondPick;
-    // if(firstPickIndex >= 0 && secondPickIndex >= 0){
-    //   if (this.state.images[this.state.firstPick].substr(4, 1) == this.state.images[this.state.secondPick].substr(4, 1))
-    //     return true;
-    //   else
-    //     return false;
-    // }
+    const firstPickIndex = this.state.firstPick;
+    const secondPickIndex = this.state.secondPick;
+    if(firstPickIndex >= 0 && secondPickIndex >= 0){
+      if (this.state.images[this.state.firstPick].substr(4, 1) == this.state.images[this.state.secondPick].substr(4, 1))
+        return true;
+      else
+        return false;
+    }
   }
 
   checkCards(){
     console.log("Cards checked.");
-    // this.state.tries++;
-    // if (this.isMatch()) {
-    //     this.state.matches ++;
-    //     this.state.images[this.state.firstPick] = null;
-    //     this.state.images[this.state.secondPick] = null;
-    // }
-    // this.state.firstPick = -1;
-    // this.state.secondPick = -1;
+    this.state.tries++;
+    if (this.isMatch()) {
+        this.state.matches ++;
+        this.state.images[this.state.firstPick] = null;
+        this.state.images[this.state.secondPick] = null;
+    }
+    this.state.firstPick = -1;
+    this.state.secondPick = -1;
   }
 
   render(){
@@ -126,49 +122,50 @@ class App extends Component {
     let status = (this.state.matches < 10) ?
       'Matches: ' + this.state.matches + " Tries: " + this.state.tries :
       "Congratulations!  You found all 10 matches in " + this.state.tries + " tries!";
-
-const output = <div>Rendered</div>
-    //    <div className="container" id="board">
-    //         <div className="pb-2" id="status">{status}</div>
-    //         <div className="row">
-    //             <div className="col-sm-1"></div>
-    //             {this.renderCard(0)}
-    //             {this.renderCard(1)}
-    //             {this.renderCard(2)}
-    //             {this.renderCard(3)}
-    //             {this.renderCard(4)}
-    //             <div className="col-1"></div>
-    //         </div>
-    //         <div className="row">
-    //             <div className="col-sm-1"></div>
-    //             {this.renderCard(5)}
-    //             {this.renderCard(6)}
-    //             {this.renderCard(7)}
-    //             {this.renderCard(8)}
-    //             {this.renderCard(9)}
-    //             <div className="col-1"></div>
-    //         </div>
-    //         <div className="row">
-    //             <div className="col-sm-1"></div>
-    //             {this.renderCard(10)}
-    //             {this.renderCard(11)}
-    //             {this.renderCard(12)}
-    //             {this.renderCard(13)}
-    //             {this.renderCard(14)}
-    //             <div className="col-1"></div>
-    //         </div>
-    //         <div className="row">
-    //             <div className="col-sm-1"></div>
-    //             {this.renderCard(15)}
-    //             {this.renderCard(16)}
-    //             {this.renderCard(17)}
-    //             {this.renderCard(18)}
-    //             {this.renderCard(19)}
-    //             <div className="col-1"></div>
-    //         </div>
-    //     </div>
+    console.log("Status is: "+ status);
+    const output = 
+       <div className="container" id="board">
+            <div className="pb-2" id="status">{status}</div>
+            <div className="row">
+                <div className="col-sm-1"></div>
+                {this.renderCard(0)}
+                {this.renderCard(1)}
+                {this.renderCard(2)}
+                {this.renderCard(3)}
+                {this.renderCard(4)}
+                <div className="col-1"></div>
+            </div>
+            <div className="row">
+                <div className="col-sm-1"></div>
+                {this.renderCard(5)}
+                {this.renderCard(6)}
+                {this.renderCard(7)}
+                {this.renderCard(8)}
+                {this.renderCard(9)}
+                <div className="col-1"></div>
+            </div>
+            <div className="row">
+                <div className="col-sm-1"></div>
+                {this.renderCard(10)}
+                {this.renderCard(11)}
+                {this.renderCard(12)}
+                {this.renderCard(13)}
+                {this.renderCard(14)}
+                <div className="col-1"></div>
+            </div>
+            <div className="row">
+                <div className="col-sm-1"></div>
+                {this.renderCard(15)}
+                {this.renderCard(16)}
+                {this.renderCard(17)}
+                {this.renderCard(18)}
+                {this.renderCard(19)}
+                <div className="col-1"></div>
+            </div>
+        </div>
+        ;
     
-    // document.getElementById("top").innerHTML = output;
+    document.getElementById("top").innerHTML = output;
 
 
      return output;
