@@ -31,6 +31,7 @@ class App extends Component {
     for (let value = 0; value < values.length; value++){
         for (let suit = 0; suit < suits.length; suit ++) {
             images[index] = "card" + values[value] + suits[suit] + ".jpg";
+            console.log("Card image name: " + images[index]);
             index++;
         }
     }
@@ -86,9 +87,10 @@ class App extends Component {
     const index = parseInt(i);
 
     if (this.state.firstPick == -1)
-        this.state.firstPick = index;
+      this.setState({firstPick : index});
+        //this.state.firstPick = index;
     else {
-        this.state.secondPick = index;
+      this.setState({secondPick: index});
         setTimeout(this.checkCards, 2000);
     }
   }
@@ -107,11 +109,16 @@ class App extends Component {
 
   checkCards(){
     console.log("Cards checked.");
-    this.state.tries++;
+    this.setState({tries: this.state.tries + 1});
     if (this.isMatch()) {
-        this.state.matches ++;
-        this.state.images[this.state.firstPick] = null;
-        this.state.images[this.state.secondPick] = null;
+      console.log("IT WAS A MATCH");
+      const {firstPick, secondPick, images} = this.state;
+      const updatedImages = [...images];
+      updatedImages[firstPick] = null;
+      updatedImages[secondPick] = null;
+
+      this.setState({ images : updatedImages});
+      this.setState({ matches: this.state.matches + 1});
     }
     this.state.firstPick = -1;
     this.state.secondPick = -1;
@@ -165,7 +172,7 @@ class App extends Component {
         </div>
         ;
     
-    document.getElementById("top").innerHTML = output;
+    //document.getElementById("root").innerHTML = output;
 
 
      return output;
