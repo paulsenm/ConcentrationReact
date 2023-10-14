@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import './App.css';
 import Status from './components/Status';
+import Card  from './components/Card';
 
 class App extends Component {
   constructor (props){
@@ -68,19 +69,26 @@ class App extends Component {
     const eventHandler = (enabled) ? () => this.handleClick(i) : () => {};
     //const eventHandler = () => this.handleClick(i); 
     const cursor = (enabled) ? "pointer" : "none";
+    const style = {backgroundImage: image, cursor: cursor};
     //const cursor = "pointer";
-    const output = 
-      <div 
-          id={i} key={i} 
-          name="card" 
-          className="col-sm-2 card"
-          style={{backgroundImage: image, cursor: cursor}}
-          onClick={eventHandler}
-          >
-          &nbsp;
-      </div>
-    ;
-  return output;
+    // const output = 
+    //   <div 
+    //       id={i} key={i} 
+    //       name="card" 
+    //       className="col-sm-2 card"
+    //       style={{backgroundImage: image, cursor: cursor}}
+    //       onClick={eventHandler}
+    //       >
+    //       &nbsp;
+    //   </div>
+    // ;
+    return(
+     < Card 
+      style = {style}
+      index = {i}
+      eventHandler = {eventHandler}
+       />
+       );
   }
 
   handleClick(i){
