@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './App.css';
+import Status from './components/Status';
 
 class App extends Component {
   constructor (props){
@@ -132,7 +133,7 @@ class App extends Component {
     console.log("Status is: "+ status);
     const output = 
        <div className="container" id="board">
-            <div className="pb-2" id="status">{status}</div>
+            < Status status = {status} />
             <div className="row">
                 <div className="col-sm-1"></div>
                 {this.renderCard(0)}
@@ -181,3 +182,13 @@ class App extends Component {
 }
 
 export default App;
+
+
+// import { useState } from 'react';
+// import './App.css';
+// import Status from './components/Status';
+
+
+// function App(){
+
+// }
