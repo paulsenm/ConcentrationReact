@@ -24,6 +24,7 @@ const fillAndShuffle = () => {
     let rnd = Math.floor(Math.random() * images.length);
     [images[i], images[rnd]] = [images[rnd], images[i]];
   }
+  return images;
 }
 
 const isMatch = (firstPick, secondPick, images) => {
