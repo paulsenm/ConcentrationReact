@@ -77,7 +77,7 @@ function App() {
       // updatedImages[firstPick] = null;
       // updatedImages[secondPick] = null;
       setImages(images);
-      setMatches(matches);
+      setMatches(matches + 1);
       // this.setState({ images : updatedImages});
       // this.setState({ matches: this.state.matches + 1});
     }
