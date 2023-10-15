@@ -46,35 +46,12 @@ function App() {
   const [images, setImages] = useState(fillAndShuffle);
 
 
-  /*
-  constructor (props){
-    super(props);
-    this.state = {
-      imagePath: 'Cards/',
-      firstPick: -1,
-      secondPick: -1,
-      matches: 0,
-      tries: 0,
-      images: this.fillImages(),
-      
-    };
-    this.shuffleImages(this.state.images);
-
-    this.handleClick = this.handleClick.bind(this);
-    this.checkCards = this.checkCards.bind(this);
-    this.isMatch = this.isMatch.bind(this);
-
-
-  }
-  */
   const handleClick = (i) => {
     console.log("Click handled." + i);
     const index = parseInt(i);
     let localPicks = {...picks};
     if (localPicks.first == -1){
       localPicks.first = index;
-      //this.setState({firstPick : index});
-      //this.state.firstPick = index;
     }
     else {
       localPicks.second = index;
@@ -85,8 +62,10 @@ function App() {
     setPicks(localPicks);
   }
 
-  const checkCards = (firstPick, secondPick, images, tries, matches) => {
-    console.log("Checking cards...");
+  const checkCards = (firstPick, secondPick, images, matches) => {
+
+    console.log("Checking cards... firstPick is: " + picks.first + ", secondPick is: " + picks.second);
+    
     setTries(tries + 1);
     //this.setState({tries: this.state.tries + 1});
     if (isMatch(firstPick, secondPick, images)) {
@@ -102,7 +81,7 @@ function App() {
       // this.setState({ images : updatedImages});
       // this.setState({ matches: this.state.matches + 1});
     }
-    setPicks(-1, -1);
+    setPicks({first: -1, second: -1});
     // this.state.firstPick = -1;
     // this.state.secondPick = -1;
   }
@@ -112,18 +91,19 @@ function App() {
 
   const renderCard = (i) => {
     console.log("Card rendered." + i);
+    console.log("firstPick is: " + picks.first + ", secondPick is: " + picks.second);
     const image = (images[i] == null) ? 'none' : 
       (picks.first == i || picks.second == i) ? 
       'url(' + imagePath + images[i] + ')' : 
       'url(' + imagePath + 'black_back.jpg)';
-    // let imagesNull = images == null;
-    // let iNotPicked = i != this.state.firstPick && i != this.state.secondPick;
-    // let notBothPicked = this.state.firstPick == -1 || this.state.secondPick == -1;
-    // let gameNotOver = this.state.matches < 10;
-    // console.log("image null? " + (imagesNull ? "yes" : "no"));
-    // console.log("iNotPicked?" + (iNotPicked ? "yes" : "no"));
-    // console.log("Not two picked?" + (notBothPicked  ? "yes" : "no"));
-    // console.log("Game not over? " + (gameNotOver  ? "yes" : "no"));
+    let imagesNull = images == null;
+    let iNotPicked = i != picks.first && i != picks.second;
+    let notBothPicked = picks.first == -1 || picks.second == -1;
+    let gameNotOver = matches < 10;
+    console.log("image null? " + (imagesNull ? "yes" : "no"));
+    console.log("iNotPicked?" + (iNotPicked ? "yes" : "no"));
+    console.log("Not two picked?" + (notBothPicked  ? "yes" : "no. firstPick is: " + picks.first + ", secondPick is: " + picks.second));
+    console.log("Game not over? " + (gameNotOver  ? "yes" : "no"));
     const enabled = (images[i] != null && 
     (i != picks.first && i != picks.second) &&
     (picks.first == -1 || picks.second == -1) &&
